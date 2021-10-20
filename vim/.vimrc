@@ -1,6 +1,7 @@
 set ts=2
 set sts=2
-set et
+set shiftwidth=2
+set expandtab
 
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
