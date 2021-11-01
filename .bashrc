@@ -6,7 +6,7 @@ export EDITOR_PREFIX=vi
 #b=$(git branch --show-current 2>/dev/null)
 #PS1="\[\e[32m\]\w\[\e[0m\] \[\e[34m\][$b]\[\e[0m\] \$ "
 export GITUSER=julienbosco
-export ZETDIR=/home/julienbosco/m/gitub.com/julienbosco/zet
+export ZETDIR=$HOME/Repos/gitub.com/julienbosco/zet
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
