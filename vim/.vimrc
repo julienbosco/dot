@@ -25,7 +25,7 @@ if has('termguicolors')
   set termguicolors
 endif
 
-set background=light " dark possible
+set background=dark" dark possible
 let g:everforest_background = 'soft'
 colorscheme everforest
 
