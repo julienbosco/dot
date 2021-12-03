@@ -6,7 +6,7 @@ export EDITOR_PREFIX=vi
 #b=$(git branch --show-current 2>/dev/null)
 #PS1="\[\e[32m\]\w\[\e[0m\] \[\e[34m\][$b]\[\e[0m\] \$ "
 export GITUSER=julienbosco
-export ZETDIR=/home/julienbosco/m/gitub.com/julienbosco/zet
+export ZETDIR=/home/julienbosco/Repos/gitub.com/julienbosco/zet
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
@@ -125,3 +125,29 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# PATH
+# Taken from rwxrob (https://github.com/rwxrob/dot)
+pathappend() {
+  declare arg
+  for arg in "$@"; do
+    test -d "$arg" || continue
+    PATH=${PATH//":$arg:"/:}
+    PATH=${PATH/#"$arg:"/}
+    PATH=${PATH/%":$arg"/}
+    export PATH="${PATH:+"$PATH:"}$arg"
+  done
+} && export pathappend
+
+pathprepend() {
+  for arg in "$@"; do
+    test -d "$arg" || continue
+    PATH=${PATH//:"$arg:"/:}
+    PATH=${PATH/#"$arg:"/}
+    PATH=${PATH/%":$arg"/}
+    export PATH="$arg${PATH:+":${PATH}"}"
+  done
+} && export pathprepend
+
+pathprepend \
+	"$HOME/.local/bin"
