@@ -25,8 +25,15 @@ if has('termguicolors')
   set termguicolors
 endif
 
-set background=light " dark possible
+set background=dark "light or dark
 let g:everforest_background = 'soft'
 colorscheme everforest
 
 let g:python_highlight_all = 1
+
+" Best practice to avoid secret leak
+set noswapfile
+set nobackup
+set nowritebackup
+set viminfo=
+set clipboard=

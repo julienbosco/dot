@@ -6,7 +6,11 @@ export EDITOR_PREFIX=vi
 #b=$(git branch --show-current 2>/dev/null)
 #PS1="\[\e[32m\]\w\[\e[0m\] \[\e[34m\][$b]\[\e[0m\] \$ "
 export GITUSER=julienbosco
+<<<<<<< HEAD
 export ZETDIR=/home/julienbosco/Repos/gitub.com/julienbosco/zet
+=======
+export ZETDIR=$HOME/Repos/gitub.com/julienbosco/zet
+>>>>>>> f7ccfaa94c7a0b1cf12a4866b44dd4f3a21701e1
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
@@ -98,9 +102,9 @@ fi
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+alias ll='ls -alF --color'
+alias la='ls -A --color'
+alias l='ls -CF --color'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
