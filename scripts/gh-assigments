@@ -1,0 +1,13 @@
+#!/bin/bash
+
+case "$1" in 
+  get)
+    (gh repo list tge-sherbrooke --json name | jq -c -r --arg assignment "$2" '.[] | select (.name | test($assignment)) | .name') | while IFS="$(printf '\n')" read -r line
+    do
+      gh repo clone tge-sherbrooke/$line
+    done
+    ;;
+
+  list)
+    gh repo list tge-sherbrooke --json name | jq -c -r '.[].name'
+esac
