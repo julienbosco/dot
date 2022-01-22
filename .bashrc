@@ -101,6 +101,7 @@ fi
 alias ll='ls -alF --color'
 alias la='ls -A --color'
 alias l='ls -CF --color'
+alias python=python3
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
