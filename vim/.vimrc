@@ -1,29 +1,61 @@
-set ts=2
-set sts=2
-set shiftwidth=2
-set expandtab
-
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+    silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+      autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    endif
 
 call plug#begin('~/.vim/plugged')
 Plug 'sheerun/vim-polyglot'
 Plug 'sainnhe/everforest'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
-Plug 'gyim/vim-boxdraw'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'vim-python/python-syntax'
 call plug#end()
 
-" ---- Color scheme ----
-if has('termguicolors')
-  set termguicolors
+set nocompatible
+filetype plugin indent on
+syntax on
+
+set autoindent
+set expandtab
+set softtabstop =2
+set shiftwidth  =2
+set shiftround
+
+set backspace   =indent,eol,start
+set hidden
+set laststatus  =2
+set display     =lastline
+
+set showmode
+set showcmd
+
+set incsearch
+set hlsearch
+
+set ttyfast
+set lazyredraw
+
+set splitbelow
+set splitright
+
+set cursorline
+set wrapscan
+set report      =0
+set synmaxcol   =200
+
+set list                   " Show non-printable characters.
+if has('multi_byte') && &encoding ==# 'utf-8'
+  let &listchars = 'tab:▸ ,extends:❯,precedes:❮,nbsp:±'
+else
+  let &listchars = 'tab:> ,extends:>,precedes:<,nbsp:.'
 endif
+
+
+" ---- Color scheme ----
+set termguicolors
 
 set background=dark "light or dark
 let g:everforest_background = 'soft'
