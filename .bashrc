@@ -116,7 +116,19 @@ if ! shopt -oq posix; then
   fi
 fi
 # - Yubikey with WSL -
-[[ $(uname -r) =~ WSL2 ]] && export SSH_AUTH_SOCK=/mnt/c/Users/julie/wincrypt-wsl.sock
+if [[ $(uname -r) =~ WSL2 ]]; then
+  export SSH_AUTH_SOCK="$HOME/.ssh/ssh-agent.sock"
+  if  (! ss -a | grep -q "$$SSH_AUTH_SOCK"); then
+    rm -f "$SSH_AUTH_SOCK"
+    wsl2_ssh_pageant_bin="$HOME/.ssh/wsl2-ssh-pageant.exe"
+    if [[ -x "$wsl2_ssh_pageant_bin" ]]; then
+      (setsid nohup socat UNIX-LISTEN:"$SSH_AUTH_SOCK,fork" EXEC:"$wsl2_ssh_pageant_bin" >/dev/null 2>&1 &)
+    else
+      echo >&2 "WARNING: $wsl2_ssh_pageant_bin is not executable."
+    fi
+    unset wsl2_ssh_pageant
+  fi
+fi
 # PATH
 # Taken from rwxrob (https://github.com/rwxrob/dot)
 pathappend() {
