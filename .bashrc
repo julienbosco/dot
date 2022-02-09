@@ -115,7 +115,8 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
+# - Yubikey with WSL -
+[[ $(uname -r) =~ WSL2 ]] && export SSH_AUTH_SOCK=/mnt/c/Users/julie/wincrypt-wsl.sock
 # PATH
 # Taken from rwxrob (https://github.com/rwxrob/dot)
 pathappend() {
@@ -140,4 +141,5 @@ pathprepend() {
 } && export pathprepend
 
 pathprepend \
-	"$HOME/.local/bin"
+	"$HOME/.local/bin" \
+  "/usr/local/go/bin"
