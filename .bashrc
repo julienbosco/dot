@@ -115,20 +115,28 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
 # - Yubikey with WSL -
+
 if [[ $(uname -r) =~ WSL2 ]]; then
   export SSH_AUTH_SOCK="$HOME/.ssh/ssh-agent.sock"
+  export GPG_AGENT_SOCK="$HOME/.gnupg/S.gpg-agent"
+
+  wsl2_ssh_pageant_bin="$HOME/.ssh/wsl2-ssh-pageant.exe"
+
   if  (! ss -a | grep -q "$$SSH_AUTH_SOCK"); then
     rm -f "$SSH_AUTH_SOCK"
-    wsl2_ssh_pageant_bin="$HOME/.ssh/wsl2-ssh-pageant.exe"
-    if [[ -x "$wsl2_ssh_pageant_bin" ]]; then
-      (setsid nohup socat UNIX-LISTEN:"$SSH_AUTH_SOCK,fork" EXEC:"$wsl2_ssh_pageant_bin" >/dev/null 2>&1 &)
-    else
-      echo >&2 "WARNING: $wsl2_ssh_pageant_bin is not executable."
-    fi
-    unset wsl2_ssh_pageant
+    (setsid nohup socat UNIX-LISTEN:"$SSH_AUTH_SOCK,fork" EXEC:"$wsl2_ssh_pageant_bin" >/dev/null 2>&1 &)
   fi
+
+  if (! ss -a | grep -q "$GPG_AGENT_SOCK"); then
+    rm -rf "$GPG_AGENT_SOCK"
+    config_path="C\:/Users/julie/AppData/Local/gnupg"
+    (setsid nohup socat UNIX-LISTEN:"$GPG_AGENT_SOCK,fork" EXEC:"$wsl2_ssh_pageant_bin -gpgConfigBasepath ${config_path} -gpg S.gpg-agent" >/dev/null 2>&1 &)
+  fi
+  unset wsl2_ssh_pageant
 fi
+
 # PATH
 # Taken from rwxrob (https://github.com/rwxrob/dot)
 pathappend() {
