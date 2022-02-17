@@ -1,0 +1,15 @@
+#!/bin/bash
+
+case "$1" in 
+  get)
+    resp=$(gh api /search/repositories -X GET -F q="$2 in:name org:tge-sherbrooke")
+    for r in $(echo $resp | jq -r '.items[].name'); do 
+      gh repo clone tge-sherbrooke/$r /tmp/$r
+    done
+    ;;
+
+  list)
+    #gh api /orgs/tge-sherbrooke/repos -F per_page=100 --jq '.[].name' -X GET
+    resp=$(gh api /search/repositories -X GET -F q="$2 in:name org:tge-sherbrooke")
+    for r in $(echo $resp | jq -r '.items[].name'); do echo "$r"; done
+esac
