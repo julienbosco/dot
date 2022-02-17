@@ -1,17 +1,32 @@
 #!/bin/bash
 
+clone_repos () {
+  for r in $(echo "$resp" | jq -r '.items[].name'); do 
+    [[ -d /tmp/"$r" ]] || gh repo clone tge-sherbrooke/"$r" /tmp/"$r"
+  done
+}
 
+run_tests () {
+  for r in $(echo "$resp" | jq -r '.items[].name'); do
+    cp "$1" /tmp/"$resp"
+    (cd /tmp/"$resp" && make test)
+  done
+}
+
+resp=$(gh api /search/repositories -X GET -F q="$2 in:name org:tge-sherbrooke")
 
 case "$1" in 
   get)
-    resp=$(gh api /search/repositories -X GET -F q="$2 in:name org:tge-sherbrooke")
-    for r in $(echo "$resp" | jq -r '.items[].name'); do 
-      gh repo clone tge-sherbrooke/"$r" /tmp/"$r"
-    done
+    clone_repos "$2"
+    ;;
+    
+  list)
+    for r in $(echo "$resp" | jq -r '.items[].name'); do echo "$r"; done
     ;;
 
-  list)
-    #gh api /orgs/tge-sherbrooke/repos -F per_page=100 --jq '.[].name' -X GET
-    resp=$(gh api /search/repositories -X GET -F q="$2 in:name org:tge-sherbrooke")
-    for r in $(echo "$resp" | jq -r '.items[].name'); do echo "$r"; done
+  test)
+    [[ -f "$3" ]] || (echo "$3 n'existe pas" && exit 1)
+    clone_repos "$2"
+    run_tests "$3"
+
 esac
