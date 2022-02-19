@@ -162,4 +162,5 @@ pathprepend() {
 
 pathprepend \
 	"$HOME/.local/bin" \
-  "/usr/local/go/bin"
+        "/usr/local/go/bin" \
+        "$HOME/go/bin"

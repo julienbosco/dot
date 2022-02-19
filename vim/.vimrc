@@ -5,7 +5,7 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
     endif
 
 call plug#begin('~/.vim/plugged')
-Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot', {'commit': '2c5af8f89d3e61e04e761c07a1f043b0f35203c6'}
 Plug 'sainnhe/everforest'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
