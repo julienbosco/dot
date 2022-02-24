@@ -3,7 +3,6 @@ set -e
 
 ln -sf "$PWD/.bashrc" "$HOME/.bashrc"
 ln -sf "$PWD/.bash_profile" "$HOME/.bash_profile"
-ln -sf "$PWD/.tmux.conf" "$HOME/.tmux.conf"
 
 mkdir -p "$HOME/.local/bin" || true
 # vim setup
