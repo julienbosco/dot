@@ -116,26 +116,11 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# - Yubikey with WSL -
 
-if [[ $(uname -r) =~ WSL2 ]]; then
-  export SSH_AUTH_SOCK="$HOME/.ssh/ssh-agent.sock"
-  export GPG_AGENT_SOCK="$HOME/.gnupg/S.gpg-agent"
-
-  wsl2_ssh_pageant_bin="$HOME/.ssh/wsl2-ssh-pageant.exe"
-
-  if  (! ss -a | grep -q "$$SSH_AUTH_SOCK"); then
-    rm -f "$SSH_AUTH_SOCK"
-    (setsid nohup socat UNIX-LISTEN:"$SSH_AUTH_SOCK,fork" EXEC:"$wsl2_ssh_pageant_bin" >/dev/null 2>&1 &)
-  fi
-
-  if (! ss -a | grep -q "$GPG_AGENT_SOCK"); then
-    rm -rf "$GPG_AGENT_SOCK"
-    config_path="C\:/Users/julie/AppData/Local/gnupg"
-    (setsid nohup socat UNIX-LISTEN:"$GPG_AGENT_SOCK,fork" EXEC:"$wsl2_ssh_pageant_bin -gpgConfigBasepath ${config_path} -gpg S.gpg-agent" >/dev/null 2>&1 &)
-  fi
-  unset wsl2_ssh_pageant
-fi
+# GPG Agent for Linux
+export GPG_TTY="$(tty)"
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpgconf --launch gpg-agent
 
 # PATH
 # Taken from rwxrob (https://github.com/rwxrob/dot)
@@ -164,3 +149,14 @@ pathprepend \
 	"$HOME/.local/bin" \
         "/usr/local/go/bin" \
         "$HOME/go/bin"
+
+# helpers for encryption decryption of files
+secret () {
+        output=~/"${1}".$(date +%s).enc
+        gpg --encrypt --armor --output ${output} -r 0x0000 -r 0x0001 -r 0x0002 "${1}" && echo "${1} -> ${output}"
+}
+
+reveal () {
+        output=$(echo "${1}" | rev | cut -c16- | rev)
+        gpg --decrypt --output ${output} "${1}" && echo "${1} -> ${output}"
+}
