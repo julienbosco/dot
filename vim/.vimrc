@@ -12,6 +12,7 @@ Plug 'plasticboy/vim-markdown'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'vim-python/python-syntax'
+Plug 'wfxr/protobuf.vim'
 call plug#end()
 
 set nocompatible
