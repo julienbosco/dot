@@ -7,4 +7,8 @@ ln -sf "$PWD/.bash_profile" "$HOME/.bash_profile"
 mkdir -p "$HOME/.local/bin" || true
 # vim setup
 cd vim && ./setup
-cd -
+cd - > /dev/null
+
+# tmux setup
+cd tmux && ./setup
+cd - > /dev/null
