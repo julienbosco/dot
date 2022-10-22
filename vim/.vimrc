@@ -22,6 +22,7 @@ set nocompatible
 filetype plugin indent on
 syntax on
 
+set ruler
 set autoindent
 set expandtab
 set softtabstop =2
@@ -94,3 +95,7 @@ set nobackup
 set nowritebackup
 set viminfo=
 set clipboard=
+
+inoremap ( ()<Left>
+inoremap [ []<Left>
+inoremap { {}<Left>
