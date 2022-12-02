@@ -1,0 +1,4 @@
+#!/bin/sh
+
+pkill gpg-agent; gpg-agent --daemon --no-detach -v -v --debug-level advanced --homedir ~/.gnupg
+gpg-connect-agent updatestartuptty /bye

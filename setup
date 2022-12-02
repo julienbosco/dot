@@ -3,6 +3,9 @@ set -e
 
 ln -sf "$PWD/.bashrc" "$HOME/.bashrc"
 ln -sf "$PWD/.bash_profile" "$HOME/.bash_profile"
+ln -sf "$PWD/scripts" "$HOME/Scripts"
+
+chmod +x $HOME/Scripts/*
 
 mkdir -p "$HOME/.local/bin" || true
 # vim setup
