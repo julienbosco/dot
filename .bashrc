@@ -147,8 +147,9 @@ pathprepend() {
 
 pathprepend \
 	"$HOME/.local/bin" \
-        "/usr/local/go/bin" \
-        "$HOME/go/bin"
+  "/usr/local/go/bin" \
+  "$HOME/go/bin" \
+  "$HOME/Scripts"
 
 # helpers for encryption decryption of files
 secret () {
