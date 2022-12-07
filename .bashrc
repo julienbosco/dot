@@ -15,7 +15,8 @@ export EDITOR=vi
 export VISUAL=vi
 export EDITOR_PREFIX=vi
 export GITUSER=julienbosco
-export ZETDIR=$HOME/Repos/gitub.com/julienbosco/zet
+export ZETDIR=$HOME/Repos/github.com/julienbosco/zet
+export LAB=$HOME/Repos/github.com/$GITUSER/lab
 
 # - dircolors -
 if _have dircolors; then
