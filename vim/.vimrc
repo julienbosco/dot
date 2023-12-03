@@ -12,15 +12,26 @@ Plug 'plasticboy/vim-markdown'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'vim-python/python-syntax'
-Plug 'wfxr/protobuf.vim'
 Plug 'pangloss/vim-javascript'
-Plug 'dense-analysis/ale'
 Plug 'evanleck/vim-svelte', {'branch': 'main'}
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+let g:coc_global_extensions = [
+  \ 'coc-tsserver'
+  \ ]
 call plug#end()
 
 set nocompatible
 filetype plugin indent on
 syntax on
+
+set encoding=utf-8
+set updatetime=300 "recommended from coc
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved
+set signcolumn=yes
 
 set ruler
 set autoindent
@@ -68,27 +79,9 @@ colorscheme everforest
 
 let g:python_highlight_all = 1
 
-" ESLint, ALE and Prettier
-let g:jsx_ext_required = 0
-let g:ale_sign_error = '✘'
-let g:ale_sign_warning = '⚠'
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_text_changed = 'never'
-highlight ALEErrorSign ctermbg=NONE ctermfg=red
-highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
-let g:ale_linters_explicit = 1
-let g:ale_lint_on_save = 1
-let g:ale_fix_on_save = 1
-let g:ale_javascript_prettier_options = '--no-semi --single-quote --trailing-comma none'
-let g:ale_linter_aliases = {'svelte': ['css', 'javascript']}
-let g:ale_linters = {'svelte': ['stylelint', 'eslint'], 'javascript': ['standard']}
-let g:ale_fixers = {'svelte': ['eslint', 'prettier', 'prettier_standard'], 'javascript': ['prettier', 'eslint'], '*': ['remove_trailing_lines', 'trim_whitespace']}
-let g:ale_lint_on_save = 1
-let g:ale_fix_on_save = 1
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_text_changed = 'never'
-
-let g:vim_svelte_plugin_load_full_syntax = 1
+" JS, TS stuff
+autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 " Best practice to avoid secret leak
 set noswapfile
 set nobackup
