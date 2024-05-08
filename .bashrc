@@ -107,6 +107,7 @@ alias push='git push'
 alias add='git add'
 alias idf='. $HOME/esp/esp-idf/export.sh'
 alias zet="KEG_CURRENT=zet keg"
+alias docker='podman'
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
