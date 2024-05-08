@@ -12,6 +12,10 @@ mkdir -p "$HOME/.local/bin" || true
 cd vim && ./setup
 cd - > /dev/null
 
+# nvim setup
+cd neovim && ./setup
+cd - > /dev/null
+
 # tmux setup
 cd tmux && ./setup
 cd - > /dev/null
